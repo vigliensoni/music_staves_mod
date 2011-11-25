@@ -1,0 +1,143 @@
+Change log of the Gamera MusicStaves Toolkit
+============================================
+
+ - MusicStaves_skeleton prints warning "no staves found" only
+   when debug > 0 (can still be queried by accessing property linelist)
+
+ - MusicStaves_linetracking can optionally use a different Stafffinder
+
+ - fixed a number of memory leaks
+
+ - fixed potential crashes in staff finder miyao and staff finder dalitz
+
+ - no longer warning on deprecated sets module
+
+Version 1.3.6, Feb 12 2010
+--------------------------
+
+ - distutil's "sdist" mechanism now used for source releases
+
+ - adapted to version 3.2.4 of Gamera, which now includes
+   the deformation plugins degrade_kanungo and white_speckles.
+   The corresponding deformation plugins in the MusicStaves
+   have been renamed to resolve the name conflicts and to
+   make their difference to the Gamera plugins clear:
+
+    o degrade_kanungo renamed to degrade_kanungo_parallel
+
+    o add_white_speckles renamed to white_speckles_parallel
+
+ - removed the plugins binary_dilation and binary_erosion,
+   which are now part of the Gamera core (dilate_with_structure
+   and erode_with_structure)
+
+Version 1.3.5, Dec 04 2009
+--------------------------
+
+ - curvature deformation works again
+
+Version 1.3.4, Apr 17 2009
+--------------------------
+
+ - choosing files from icon context menu now also works on Windows
+
+Version 1.3.3, Mar 09 2009
+--------------------------
+
+ - fixed a number of memory leaks related to PyList_Append increasing
+   the reference count of the passed item
+
+Version 1.3.2, Feb 29 2008
+--------------------------
+
+ - ported to wxPython 2.8
+
+ - fixed a compilation error due to ambiguity of round()
+
+Version 1.3.1, Mar 15 2007
+--------------------------
+
+ - ported to gcc 4.1
+
+Version 1.3.0, Feb 27 2007
+--------------------------
+
+ - new plugins for creating deformations
+
+ - new plugins for evaluating staff removal error rates
+   with respect to different error metrics
+
+ - the deskewing in MusicStaves_rl_fujinaga can now be undone
+
+ - new plugins for computing vector field from onebit images,
+   which now make MusicStaves_RoachTatem usable
+
+Version 1.2.0, Nov 11 2005
+--------------------------
+
+ - ported to Gamera 3.x
+
+ - keep_tall_skewed_runs() accepts Point list rather than
+   y_poslist as input parameter. Behaviour is now according
+   specification, ie. runs are kept according to their
+   height instead of their length
+
+ - CD: new class MusicStaves_skeleton
+
+ - CD: new plugins in skeleton_utilities for skeletons
+
+ - CD: new staff finding algorithms stafffinder_projections
+       and stafffinder_dalitz
+
+Version 1.1.1, Jun 03 2005
+--------------------------
+
+ - CD: support for argument dialog in remove_staves and find_staves
+       fixed some segmentation faults and other problems in 
+       staffinder_miyao
+
+Version 1.1.0, May 25 2005
+--------------------------
+
+ - CD: StaffFinder_miyao implements a method by H. Miyao
+       for staff line finding without removal
+
+ - CD: new base class StaffFinder for finding staff lines
+       without removing them. Also provides classes for
+       storing line position information (Staffline* classes)
+
+Version 1.0.1, Feb 11 2005
+--------------------------
+
+ - replaced filter_*_runs with filter_*_black_runs to be
+   compatible with new Gamera plugins
+
+
+Version 1.0.0, Jan 28 2005
+--------------------------
+
+ - TK: o new plugin function keep_tall_skewed_runs()
+       o set default value of function 'remove_staves' to 'all'
+         (when called from the icon)
+ 
+ - CD: added parameter staffrect to StaffObj
+
+ - MGD: Added the Fujinaga staff removal algorithm.  (In a working
+	state, but "number of staff line detection" and different
+	kinds of staff removal are not implemented yet.)
+
+ - MGD: Importing MusicStaves no longer imports wxPython unless
+	the Gamera GUI is running.  This saves a lot on resources
+	and also makes debugging in tools such as gdb and vlagrind
+	much easier.
+
+ - CD: MusicStaves also constructable from greyscale image
+
+ - CD: new plugin function correct_rotation()
+
+
+Version 0.5.0, Dec 22 2004
+--------------------------
+
+ - first release with one algorithm "MusicStaves_rl_simple"
+

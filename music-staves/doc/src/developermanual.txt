@@ -1,0 +1,302 @@
+=======================================
+MusicStaves Toolkit Developer's Manual
+=======================================
+
+This manual is for those, who want to implement their own staff
+removal and/or finding algorithms for inclusion into this toolkit.
+
+Overall Structure
+'''''''''''''''''
+
+The toolkit provides two different interfaces, depending whether your
+algorithm only finds staff lines without removing them or whether it
+additionally removes staff lines. For staff line finding, the base class
+``StaffFinder`` is provided, for staff removal ``MusicStaves``.
+
+There are several algorithms for staff line finding and removal and each
+StaffFinder or MusicStaves class implements a specific algorithm. Hence 
+adding a staff removal algorithm means adding a MusicStaves class, and
+adding a staff finding algorithm means adding a StaffFinder class.
+
+All MusicStaves classes are derived from the virtual class `MusicStaves`__
+which offers the following methods:
+
+.. __: gamera.toolkits.musicstaves.musicstaves.MusicStaves.html
+
+    - __init__()
+    - remove_staves()
+    - get_staffpos()
+
+Of these only ``__init__()`` is actually implemented in ``MusicStaves``;
+the other two are virtual functions. Hence you *must* at least implement
+``remove_staves()`` and ``get_staffpos()`` in your derived class.
+
+All StaffFinder classes are derived from the virtual class `StaffFinder`__
+which offers the following methods:
+
+.. __: gamera.toolkits.musicstaves.stafffinder.StaffFinder.html
+
+    - __init__()
+    - find_staves()
+    - get_average(), get_polygon(), get_skeleton()
+
+Of these ``find_staves()`` is a virtual function which is not implemented
+in ``StaffFinder``. Hence you *must* at least implement
+``find_staves_staves()`` in your derived class.
+
+
+Directory Structure
+```````````````````
+
+The MusicStaves toolkit is conform to the specifications of Gamera toolkits 
+(see the Gamera documentation for details). The base classes and all
+derived classes are in the directory
+``MusicStaves/gamera/toolkits/musicstaves``. This directory also contains
+a file called ``__init__.py``. It is described `below`__ how to adjust
+this file to make your own class available in the toolkit.
+
+.. __: developermanual.html#init-py
+
+Naming conventions
+------------------
+
+Additional MusicStaves classes should have a name starting with
+``MusicStaves_``.
+Additional StaffFinder classes should have a name starting with
+``StaffFinder_``.
+
+
+Adding your own class
+'''''''''''''''''''''
+
+Adding your class to this toolkit involves two steps:
+
+ - implement your staff removal algorithm as a MusicStaves or StaffFinder
+   derived class in ``MusicStaves/gamera/toolkits/musicstaves``. The name
+   should begin with ``MusicStaves_`` or ``StaffFinder``.
+
+ - make your class accessible from the Gamera GUI
+
+
+MusicStaves class architecture
+``````````````````````````````
+
+Here is a simple implementation of a MusicStaves class:
+
+.. code:: Python
+
+  # import the base class
+  from musicstaves import *
+
+  def MusicStaves_own(MusicStaves):
+      def __init__(self, img, staffline_height=0, staffspace_height=0):
+          # call the constructor of the base class
+          MusicStaves.__init__(self, img, staffline_height, staffspace_height)
+          # additional initializations can follow
+          # ...
+
+      #
+      # own algorithm for staff line removal
+      # stores the staffless image in self.image
+      #
+      def remove_staves(self, crossing_symbols, num_lines=0):
+          # your implementation of staff line removal will be here
+          pass
+
+      #
+      # return the y-position for every staff lines at a given
+      # x-position, this is done using a ``StaffObj`` object
+      #
+      def get_staffpos(self, x=0):
+          # the logic of returning the positions of the stafflines is here
+          # ...
+
+          # fill ``so`` with values and return it
+          so = StaffObj()
+          # ...
+
+          return so
+
+You can add more methods of course. You *must* however at least 
+provide the ``remove_staves`` and ``get_staffpos`` because these are
+virtual functions in the base class.
+
+
+StaffFinder class architecture
+``````````````````````````````
+
+Here is a simple implementation of a StaffFinder class:
+
+.. code:: Python
+
+  # import the base class
+  from stafffinder import *
+
+  def StaffFinder_own(StaffFinder):
+      def __init__(self, img, staffline_height=0, staffspace_height=0):
+          # call the constructor of the base class
+          StaffFinder.__init__(self, img, staffline_height, staffspace_height)
+          # additional initializations can follow
+          # ...
+
+      #
+      # own algorithm for staff line finding
+      # stores the staffline position information in in self.linelist
+      #
+      def find_staves(self, num_lines=0):
+          # your implementation of staff line finding will be here
+          # it stores all staff lines in self.linelist so that
+          # self.linelist[0][0] is the first line in the first staff 
+          # system, self.linelist[2][3] is the fourth line in the third
+          # staff system and so on
+          pass
+
+
+You can add more methods of course. You *must* however at least 
+provide ``find_staves`` because this is a virtual functions in the
+base class.
+
+.. note:: You do *not* need to implement ``get_average``, ``get_polygon``
+  and ``get_skeleton``. These are already provided in the base class with
+  the use of the conversion functions of the respective ``Staffline`` classes.
+
+
+Adding GUI support
+```````````````````
+
+As described in the `user's manual`__, MusicStaves and StaffFinder objects
+are also accessible from the Gamera GUI. Making your own class accessible
+in the same way requires two steps:
+
+.. __: usermanual.html#using-the-gamera-gui
+
+ - register your class in the context menu of the MusicStaves toolkit
+   icon in ``__init__.py``
+
+ - write a onebit/greyscale image plugin that creates a MusciStaves or
+   StaffFinder instance of your class
+
+__init__.py
+-----------
+
+To make your class available in the context menu of the MusicStaves toolkit
+icon, some modifications in the file ``__init__.py`` are needed.
+It defines a class called ``MusicStavesModuleIcon`` where the menu entry
+for each MusicStaves and StaffFinder class
+is created and the correct method is called when creating an instance. The
+class contains the list ``classes`` (defined in ``__init__()``) where all
+available classes are stored:
+
+.. code:: Python
+
+  from musicstaves_rl_simple import MusicStaves_rl_simple
+  from stafffinder_mymethod import StaffFinder_mymethod
+
+  ...
+
+  def __init__(self, *args, **kwargs):
+      # ...
+
+      #
+      # list containing all classes derived from MusicStaves,
+      # add your own class name to this list and it will appear
+      # in the menu of the MusicStaves icon 
+      # 
+      self.classes=["MusicStaves_rl_simple", "StaffFinder_mymethod"]
+
+Add your class name to this list.
+
+Plugins
+-------
+
+The plugins which create MusicStaves or StaffFinder objects from images
+are implemented in ``musicstaves_plugins.py`` in the plugin directory of
+the MusicStaves toolkit. To give an example, the
+declaration of the class ``MusicStaves_rl_simple`` looks as follows:
+
+.. code:: Python
+
+  #
+  # plugin to create a ``MusicStaves_rl_simple`` object
+  #
+  class MusicStaves_rl_simple(PluginFunction):
+      pure_python = 1
+      category = "MusicStaves/classes"
+      self_type = ImageType([ONEBIT, GREYSCALE])
+      args = Args([Int('staffline_height', default=0),\
+              Int('staffspace_height', default=0)])
+      return_type = Class("musicstaves")
+
+      #
+      # import the module (containing our class declaration) and return
+      # the created MusicStaves_rl_simple object
+      #
+      def __call__(image, staffline_height=0, staffspace_height=0):
+          from gamera.toolkits.musicstaves import musicstaves_rl_simple
+          return musicstaves_rl_simple.MusicStaves_rl_simple(\
+                  image, staffline_height, staffspace_height)
+
+      __call__ = staticmethod(__call__)
+
+In this example the method ``__call__()`` is called with three arguments
+(as specified by the ``MusicStaves`` class). If your MusicStaves class
+works with more arguments, your ``__call__()`` method has to be called
+with those additional arguments as well.
+
+Beside defining the function, you must also register it as a plugin function
+in the class ``MusicStavesModule`` at the end of the file 
+``musicstaves_plugins.py``:
+
+.. code:: Python
+
+  class MusicStavesModule(PluginModule):
+      cpp_headers = ["musicstaves_plugins.hpp"]
+      category = "MusicStaves"
+      functions = [MusicStaves_rl_simple,\
+                   fill_horizontal_line_gaps,\
+                   fill_vertical_line_gaps]
+
+Add the name of your class instance creator plugin to the list ``functions``.
+
+Writing plugins is documented and described in detail in the Gamera
+documentation.
+
+Custom arguments for remove_staves
+----------------------------------
+
+The GUI dialog for the ``MusicStaves.remove_staves`` and 
+``StaffFinder.find_staves`` methods by default offers the arguments
+defined in the base classes. If your particular implementation supports
+additional arguments, you can make them accessible from the GUI by
+defining the variable ``remove_staves_args`` or ``find_staves_args``
+respectively in the class constructor.
+
+Here is an example for a MusicStaves derived class constructor:
+
+.. code:: Python
+
+  def MusicStaves_own(MusicStaves):
+      def __init__(self, img, staffline_height=0, staffspace_height=0):
+          # call constructor of base class
+          # (sets self.remove_staves_args to some default value) 
+          StaffFinder.__init__(self, img, staffline_height, staffspace_height)
+          # register a different set of arguments for remove_staves
+          self.remove_staves_args = Args([Int("num_lines", default=0),
+                                        Int("someintarg", default=20),
+                                        Float("somefloatarg", range=(0,1), default=0.8)])
+
+
+Here is an example for a StaffFinder derived class constructor:
+
+.. code:: Python
+
+  def StaffFinder_own(StaffFinder):
+      def __init__(self, img, staffline_height=0, staffspace_height=0):
+          # call constructor of base class
+          # (sets self.find_staves_args to some default value) 
+          StaffFinder.__init__(self, img, staffline_height, staffspace_height)
+          # register a different set of arguments for find_staves
+          self.find_staves_args = Args([Int("num_lines", default=0),
+                                        Int("someintarg", default=20),
+                                        Float("somefloatarg", range=(0,1), default=0.8)])
+

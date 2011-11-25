@@ -1,0 +1,69 @@
+Readme for ps2png
+=================
+
+Purpose
+-------
+
+ps2png.sh is a Bourne shell script for converting a postscript
+file to a bitmap image in PNG format.
+
+
+Requirements
+------------
+
+ps2png relies on ghostscript (executable name: gs) for doing
+the actual conversion. On Linux it should come with the OS,
+for MacOS X it is -among other options- available through 
+Fink (http://fink.sourceforge.net/). The ghostscript source 
+code is available from http://www.cs.wisc.edu/~ghost/.
+
+As ghostscript converts landscape PS files to portrait,
+ps2png tries to detect landscape files and rotates them
+after the conversion. There are two ways suppported how this
+can be done:
+
+ - with gamera's rotate plugin
+
+ - with the command line program "convert" that is
+   part of the ImageMagick suite (http://www.imagemagick.org/)
+
+Which method is used depends on the variable USEIMAGEMAGICK4ROTATION
+defined at the top of ps2png. The default is to use gamera, which
+is considerably faster because convert does not realize that a
+rotation by 90 degrees does not require interpolation.
+
+
+Installation and Usage
+----------------------
+
+For an installation simply move the script to a directory
+in your search path and optionally rename it to ps2png, eg.
+with
+
+	sudo install -m 755 ps2png.sh /usr/local/bin/ps2png
+
+Basic usage is
+
+    ps2png bla.ps
+
+This will create 'bla.png'. For a list of all options
+call ps2png without arguments. Note that you explicitly must
+give the option '-eps' if you want an EPS bounding box be
+respected.
+
+
+Author
+------
+
+Christoph Dalitz (christoph <dot> dalitz <at> hsnr <dot> de)
+
+
+License
+-------
+
+ps2png is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

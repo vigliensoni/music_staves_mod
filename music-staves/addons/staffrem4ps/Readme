@@ -1,0 +1,48 @@
+Readme for staffrem4ps
+======================
+
+Purpose
+-------
+
+staffrem4ps.py is a python script for removing staff lines from
+scores in postscript format. It supports a variety of music 
+typesetting programs plus some generic postscript creators
+(like Ghostscript's pdf2ps or Adobe's acroread -toPostScript).
+
+Note that the score must be in vector postscript format, not
+bitmapped.
+
+
+Usage
+-----
+
+Basic usage is
+
+    staffrem4ps.py score.ps
+
+This will try to guess the creator of the PS file and remove
+the staff lines (or what staffrem4ps believes to be staff lines).
+The output is written to score-nostaff.ps.
+
+When staffrem4ps cannot guess the creator or guesses wrong,
+you can specify the creator explicitly with the option -c.
+
+    staffrem4ps.py -?    prints a help message
+    staffrem4ps.py -h    prints all supported creators
+
+
+Author
+------
+
+Christoph Dalitz (christoph <dot> dalitz <at> hsnr <dot> de)
+
+
+License
+-------
+
+staffrem4ps is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.

@@ -1,0 +1,210 @@
+
+//-------------------------------------------------------
+score
+	units = cm
+	pageheight = 29.7
+	pagewidth = 21.0
+	topmargin = 2.5
+	leftmargin = 1.5
+	rightmargin = 1.5
+	numbermrpt = n
+	measnum = y
+	scale = 0.65
+	lyricssize = 16
+	size = 16
+	scoresep = 34
+	scorepad = -10
+//-------------------------------------------------------
+top
+	title (24) "1. Kyrie"
+	title (38) " "  // add some space
+
+//-------------------------------------------------------
+score
+	time = 4/4
+	key = e major
+	beamstyle = 4,4,4,4
+	staffs = 4
+	// label = ""
+	bracket = 1-2
+	brace = 3-4 ("Organo")
+	staff 1
+		label = "Soprano\nAlto"
+		clef = treble
+		vscheme = 2f
+		staffsep = 20
+	staff 2
+		label = "Basso"
+		clef = bass
+		vscheme = 2f
+		staffsep = 23
+		staffpad = -10
+	staff 3
+		clef = treble
+		vscheme = 2f
+		staffsep = 15
+		staffpad = -10
+	staff 4
+		clef = bass
+		vscheme = 2f
+
+//-------------------------------------------------------
+music
+//-------------------------------------------------------
+rom (20) above all: 0 "Andante";
+1: mr;
+2: mr;
+3: 4r;b-e;;;
+4 1: 8r;g<>;4g;;;
+4 2: 2.e;4r;
+ital (12) below 4: 1 [-2] "Ped";
+bar
+1 1: mr;
+2: mr;
+3: mrpt;
+4: mrpt;
+bar
+ital above 1: 1 "Alto Solo";
+1: 2e;4e;f;
+lyrics 1: "Ky-rie e-";
+2: mr;
+3: 4r;b-e;;cf;
+4 1: 8r;g<>;4g;;a;
+4 2: 2.e;4r;
+bar
+1: 4e;d;r;e;
+lyrics 1: "lei-son, e";
+2: mr;
+3: 4r;b-d;;b-e;
+4 1: 8r;f<>;4f;;g;
+4 2: 2.b-;4r;
+bar
+// bar 5
+1: 2f;4.a;8g;
+phrase 1: 1 til 4;
+lyrics 1: 1; "lei-";
+2: mr;
+3: 4r;df;;;
+4 1: 8r;a<>;4a;;;
+4 2: 2.b-;4b-;
+bar
+1: 2.g;4r;
+lyrics 1: "son.";
+2: mr;
+3: 4r;b-e;;;
+4 1: 8r;g<>;4g;;;
+4 2: 2e;4e;;
+bar
+1: 4.c+;8b;a;g;f;e;
+lyrics 1: 4.;8;4;4; "Ky-ri-e e-";
+2: mr;
+3: 4r;ce;;cf;
+4 1: 8r;a<>;4a;;;
+4 2: 2.a-;4a-;
+bar
+1: 4.d;8e;4f;g;
+phrase 1: 1 til 2;
+lyrics 1: 2;4;4; "lei-son, e-";
+2: mr;
+3: 4r;df;;eg;
+4 1: 8r;b<>;4b;;;
+4 2: 2.b-;4b-;
+bar
+1: 4a<>;8f;r;4e<>;d;
+lyrics 1: 1; "lei-";
+2: mr;
+3: 4r;cf;r;df;
+4 1: 8r;a<>;4a;8r;a<>;4a;
+4 2: 2a-;b-;
+bar
+// bar 10
+1: 2.e;4r;
+lyrics 1: "son.";
+2: mr;
+3: 4r;[with .] b-eg;e<d>gb<a>;8dfa;r;
+4: 2.e;4r;
+bar
+//
+//********* Tutti *********
+//
+ital above 1: 1 "Coro";
+1 1: 2g;4g;a;
+1 2: 2b-;4b-;c;
+lyrics 1: "Ky-rie e-";
+2: 2e;4e;e;
+3: 4r;eg;;ea;
+4 1: 4r;b;b;c+;
+4 2: 1e-;
+bar
+1 1: 4g;f;r;g;
+1 2: 4e;d;s;e;
+phrase 1: 4 til 1m +4;
+lyrics 1: "lei-son, e-";
+2: 4b;b-;r;b-;
+lyrics 2: "_ _ e-";
+3: 4r;df;;eg;
+4 1: 4r;b;;;
+4 2: 1b-;
+bar
+1 1: 4a;c+;b;a;
+1 2: 4f;a;g;f;
+2: 1b;
+lyrics 2: "lei-";
+3: 4r;da;eg;df;
+4 1: 4r;b;;;
+4 2: 1b-;
+bar
+1 1: 8.b;16a;2g;4r;
+1 2: 8.g;16f;2e;4s;
+lyrics 1: 4;2.; "lei-son.";
+2: 2.e;4r;
+lyrics 2: "son.";
+3: 4r;eg;gb;eg;
+4 1: 4r;b;;;
+4 2: 1e-;
+bar
+// bar 15
+1 1: 4.e+;8d+;c+ bm;b ebm;a bm;g ebm;
+1 2: 4.c+;8b;a bm;g ebm;f bm;e ebm;
+lyrics 1: 4.;8;4;4; "Ky-ri-e e-";
+2: 2a;4a;a;
+lyrics 2: "Ky-rie e-";
+3: 4r;cea;;cfa;
+4: 1a-;
+bar
+1 1: 4.f<>;8g;4a;b;
+1 2: 4.d<>;8e;4f;d;
+lyrics 1: "lei-son, e-";
+2: 2b;4b;b;
+lyrics 2: "lei-son, e-";
+3: 4r;df;;;
+4 1: 4r;a;;;
+4 2: 1b-;
+bar
+1 1: 4g;a;4.f;8e;
+1 2: 4e;f;e;d;
+phrase above 1: 1 til 4;
+phrase below 1: 1 til 4;
+lyrics 1: 1; "lei-";
+2: 4c+;a;b;b-;
+phrase below 2: 1 til 4;
+lyrics 2: 1; "lei-";
+3: 4ce;cf;r;b-d;
+4 1: 4g;a;r;f;
+4 2: 4c;a-;2b-;
+bar
+1 1: 2.e;4r;
+1 2: 2.e;4s;
+lyrics 1: "son.";
+2: 2.e;4r;
+lyrics 2: "son.";
+3: 4r;b-e;;;
+4 1: 8r;g<>;4g;;;
+4 2: 1e-;
+bar
+1: mr;
+2: mr;
+3: 4r;b-fn;cne;b-dn;
+4 1: 4r;a;a;g;
+4 2: 2dn;e;
+dblbar

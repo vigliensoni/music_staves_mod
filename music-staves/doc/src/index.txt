@@ -1,0 +1,173 @@
+=====================================
+MusicStaves Toolkit Documentation
+=====================================
+
+:Editor: Christoph Dalitz and Thomas Karsten
+
+Use the `SourceForge project page`__ for access to CVS, file releases, etc.
+
+.. __: http://sourceforge.net/projects/music-staves/
+
+Overview
+''''''''
+
+An important preprocessing step in Optical Music Recognition is the
+removal of staff lines. This toolkit provides methods for removing staff
+lines from a music image and for querying their positions afterwards.
+
+Apart from the basic functionality, this toolkit also provides
+
+- a unified interface to different staff removal algorithms
+
+- a unified interface to different staff finding (without removal) algorithms
+
+- a plugin framework for adding custom staff removal algorithms
+
+
+User's Manual
+'''''''''''''
+
+This documentation is for those, who want to use the toolkit for
+finding and removing stafflines, but are not interested in implementing
+their own staff removal algorithms.
+
+- `Using the MusicStaves toolkit`__: Describes how to use this toolkit
+  both in Python scripts and from the Gamera GUI
+
+.. __: usermanual.html
+
+- Plugins_: Reference for the plugin functions shipped with this toolkit
+
+.. _Plugins: plugins.html
+
+- Classes_: Reference for the classes defined in this toolkit. Each class
+  represents a specific staff removal algorithm.
+
+.. _Classes: classes.html
+
+Developer's Manual
+''''''''''''''''''
+
+This documentation is for those, who want to implement their own staff
+removal algorithms for inclusion into this toolkit.
+
+- `Overall Structure`__: Describes the general structure and class hierarchy
+  of the MusicStaves toolkit.
+
+.. __: developermanual.html#overall-structure
+
+- `Adding own methods`__: Describes how to make own staff removal methods
+  available within the framework of the MusicStaves toolkit.
+
+.. __: developermanual.html#adding-your-own-class
+
+
+Installation
+''''''''''''
+
+This toolkit has only been tested on Linux and MacOS X.
+We do not know whether and how this toolkit could be compiled
+and installed on Windows (although it should be possible in principle).
+
+The following installation instructions should work for any Unix like
+operating system (MacOS X, Linux, Solaris, FreeBSD, ...).
+
+Prerequisites
+`````````````
+
+First you will need a working installation of Gamera. See the 
+`Gamera website`__ for details. It is strongly recommended that you use
+the CVS version rather than the latest stable release.
+
+.. __: http://ldp.library.jhu.edu/projects/gamera/
+
+If you want to generate the documentation, you will need two additional
+third-party Python libraries:
+
+  - docutils_ (version 0.3 or later) for handling reStructuredText documents.
+
+  - pygments_ (version 0.6 or later) or SilverCity_ (version 0.9 or later)
+    for colorizing source code.
+
+.. _docutils: http://docutils.sourceforge.net/
+.. _pygments: http://pygments.org/
+.. _SilverCity: http://silvercity.sourceforge.net/
+
+
+
+Building and Installing
+```````````````````````
+
+To build and install this toolkit, go to the base directory of the toolkit
+distribution and run the ``setup.py`` script as follows::
+
+   # 1) compile
+   python setup.py build
+
+   # 2) install
+   #    a) on MacOS X
+   sudo python setup.py install
+   #    b) on Linux
+   su root -c setup.py install
+
+Command 1) compiles the toolkit from the sources and command 2) installs
+it into the Python library directory. As the latter requires
+root privilegue, you need to use ``sudo`` (vanilla MacOS X configuration)
+or ``su root -c`` (vanilla Linux configuration).
+
+To regenerate the documentation, go to the ``doc`` directory and run the
+``gendoc.py`` script. The output will be placed in the ``doc/html/``
+directory.  The contents of this directory can be placed on a webserver
+for convenient viewing.
+
+.. note:: Before building the documentation you must install the
+   toolkit. Otherwise ``gendoc.py`` will not find the plugin documentation.
+
+
+Installing without root privileges
+``````````````````````````````````
+
+The above installation with ``python setup.py install`` will install
+the toolkit system wide and thus requires root privileges. If you do
+not have root access (Linux) or are no sudoer (MacOS X), you can
+install the MusicStaves toolkit into your home directory. Note however
+that this also requires that gamera is installed into your home directory.
+It is currently not possibole to install gamera globally and only toolkits
+locally.
+
+Here are the steps to install both gamera and the MusicStaves toolkit into
+``~/python``::
+
+   # install gamera locally
+   mkdir ~/python
+   python setup.py install --home=$HOME/python
+
+   # build and install the MusicSatves toolkit locally
+   export CFLAGS=-I$HOME/python/include/python2.3/gamera
+   python setup.py build
+   python setup.py install --home=$HOME/python
+
+Moreover you should set the following environment variables in your 
+``~/.profile``::
+
+   # search path for python modules
+   export PYTHONPATH=$HOME/python/lib/python
+
+   # search path for executables (eg. gamera_gui)
+   export PATH=$HOME/python/bin:$PATH
+
+
+Uninstallation
+``````````````
+
+All files of this toolkit are installed into the 
+``gamera/toolkits/musicstaves`` subdirectory of the Python library folder.
+Thus it is sufficient to remove this directory for an uninstallation.
+
+Where the python library folder is depends on your system and python version.
+Here are the folders that you need to remove on MacOS X and Debian Linux
+(with python 2.3):
+
+  - MacOS X: ``/Library/Python/2.3/gamera/toolkits/musicstaves``
+
+  - Debian Linux: ``/usr/lib/python2.3/site-packages/gamera/toolkits/musicstaves``

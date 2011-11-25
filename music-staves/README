@@ -1,0 +1,60 @@
+MusicStaves Toolkit for Gamera
+==============================
+
+Purpose
+-------
+
+An important preprocessing step in Optical Music Recognition is the removal
+of staff lines. This toolkit provides methods for removing staff lines from
+a music image and for querying their positions afterwards.
+
+Apart from the basic functionality, this toolkit also provides
+
+ - a unified interface to different staff removal algorithms
+ - a plugin framework for adding custom staff removal algorithms
+
+
+Requirements
+------------
+
+This toolkit has been written for the Gamera framework and requires
+a working Gamera installation. See the Gamera homepage:
+
+	http://gamera.sourceforge.net/
+
+
+Documentation
+-------------
+
+For a user's guide and a developer's guide see 'doc/html/index.html'.
+For release notes and a revision history see 'CHANGES'.
+
+
+Installation
+------------
+
+See the section "Installation" in 'doc/html/index.html' or 
+'doc/src/index.txt'.
+
+
+Authors
+-------
+
+Christoph Dalitz, <christoph dot dalitz at hsnr dot de>, 2004-2007
+Thomas Karsten, 2004-2005
+Michael Droettboom, 2005
+Bastian Czerwinski, 2006
+
+Please contact Christoph Dalitz for contributions to this toolkit.
+
+
+License
+-------
+
+This toolkit is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+file LICENSE for more details.
